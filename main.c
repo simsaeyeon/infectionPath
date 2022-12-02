@@ -44,10 +44,14 @@ int main(int argc, const char * argv[]) {
     }
     
     //1-2. loading each patient informations
+    //ifctele_genElement()//여기에 값을 적절하게 하나씩 
+    
     while(3==(fscanf(fp,"%d %d %d",&pIndex,&age,&time))){
     	for(i=0;i<5;i++){
     		fscanf(fp,"%d",&placeHist[i]);
 		}
+		ifctele_genElement(pIndex,age,time,placeHist[N_HISTORY]);
+		
 		printf("%i 번째 환자 감염 경로 :",pIndex);
 		for(j=0;j<5;j++){
 			printf("%s  ",ifctele_getPlaceName(placeHist[j]));
@@ -78,7 +82,11 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             case MENU_PATIENT:
-                
+            	printf("Patient index:");
+            	scanf("%d",&pIndex);
+            	
+            	
+            
                 break;
                 
             case MENU_PLACE:
