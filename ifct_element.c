@@ -107,12 +107,8 @@ typedef struct ifs_ele{
 	int Index;
 	int age;
 	int inf_detected_time;
-	char place_t[N_HISTORY];  //OK
- 
+	place_t place[N_HISTORY];  //OK
 } ifs_ele_t;
-
-static ifs_ele_t ifsarray[20];     //나중에 배운 수업 토대로 바꿀 예정  main.c에서 못끌어오도록 하기 위해 static 사용 for incapsulation 
-static int ifs_cnt; //몇 명의 환자가 들어있는지 확인하는 용도 
 
 int ifctele_getAge(void* obj){
 	ifs_ele_t *strPtr = (ifs_ele_t *)obj;
@@ -126,27 +122,42 @@ int ifctele_getAge(void* obj){
 	//return(ifs_ele_t.age); //return이 나이를 출력하게끔  pointer로 멤버에 접근하는 방법 배운거 사용하기/ 
 } 
 
- 
 char* ifctele_getPlaceName(int placeIndex){
 	
 	return countryName[placeIndex];
 }
 
-void* ifctele_genElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY]){
+void* ifctele_genElement(int index, int age, unsigned int detected_time, int history_place[]){
 	//fscanf가 갖고 있는 정보 여기에 넣어야함. 
-	ifsarray[ifs_cnt].Index=index;
-	ifsarray[ifs_cnt].age=age;
-	ifsarray[ifs_cnt].inf_detected_time=detected_time;
-	ifsarray[ifs_cnt].place_t[N_HISTORY]= history_place[N_HISTORY];
+	ifs_ele_t *strPtr;
+	int i;
 	
-	ifs_cnt++;
-	return (void*)&ifsarray[ifs_cnt];
+	strPtr = malloc(sizeof(struct ifs_ele));
+	strPtr->Index=index;
+	strPtr->age=age;
+	strPtr->inf_detected_time=detected_time;
+	//for문으로 만들기 
+	for(i=0;i<5;i++){
+			strPtr->place[N_HISTORY]=history_place[i];
+	}
+	
+	return strPtr;
 }
 
 void ifctele_printElement(void* obj){
 		ifs_ele_t *strPtr = (ifs_ele_t *)obj;
 		
+		printf("--------------------------------------------\n");
+		printf("Patient index : %i\n",strPtr->Index);
+		printf("Age : %i\n",strPtr->age);
+		printf("Detected time : %i\n",strPtr->inf_detected_time);
+		//나머지들도 print쭉 
 		//print elements
 }
 
+unsigned int ifctele_getinfestedTime(void* obj){
+	ifs_ele_t *strPtr = (ifs_ele_t *)obj;
+	
+	return (strPtr -> inf_detected_time);
+}
 

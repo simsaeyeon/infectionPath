@@ -28,6 +28,7 @@ int main(int argc, const char * argv[]) {
     int pIndex, age, time;
     int placeHist[N_HISTORY];
     int i,j;
+    
     //------------- 1. loading patient info file ------------------------------
     //1-1. FILE pointer open
     if (argc != 2)
@@ -45,19 +46,17 @@ int main(int argc, const char * argv[]) {
     
     //1-2. loading each patient informations
     //ifctele_genElement()//여기에 값을 적절하게 하나씩 
-    
+   
     while(3==(fscanf(fp,"%d %d %d",&pIndex,&age,&time))){
     	for(i=0;i<5;i++){
     		fscanf(fp,"%d",&placeHist[i]);
 		}
-		ifctele_genElement(pIndex,age,time,placeHist[N_HISTORY]);
+		ifct_element = ifctele_genElement(pIndex,age,time,placeHist);//여기에 fscanf로 저장받은 값 넣어라. 
 		
-		printf("%i 번째 환자 감염 경로 :",pIndex);
-		for(j=0;j<5;j++){
-			printf("%s  ",ifctele_getPlaceName(placeHist[j]));
-		}
-		printf("\n");
-	}
+		ifctdb_addTail(ifct_element); 
+
+	} 
+	
     
     //1-3. FILE pointer close
     fclose(fp);
@@ -84,9 +83,8 @@ int main(int argc, const char * argv[]) {
             case MENU_PATIENT:
             	printf("Patient index:");
             	scanf("%d",&pIndex);
+            	ifctele_printElement(ifctdb_getData(pIndex));
             	
-            	
-            
                 break;
                 
             case MENU_PLACE:
