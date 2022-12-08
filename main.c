@@ -52,7 +52,6 @@ int main(int argc, const char * argv[]) {
     		fscanf(fp,"%d",&placeHist[i]);
 		}
 		ifct_element = ifctele_genElement(pIndex,age,time,placeHist);//여기에 fscanf로 저장받은 값 넣어라. 
-		
 		ifctdb_addTail(ifct_element); 
 
 	} 
@@ -82,8 +81,8 @@ int main(int argc, const char * argv[]) {
                 
             case MENU_PATIENT:
             	printf("Patient index:");
-            	scanf("%d",&pIndex);
-            	ifctele_printElement(ifctdb_getData(pIndex));
+            	scanf("%d",&ifct_element);
+            	ifctele_printElement(ifctdb_getData((ifct_element)));
             	
                 break;
                 

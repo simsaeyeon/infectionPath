@@ -108,6 +108,7 @@ typedef struct ifs_ele{
 	int age;
 	int inf_detected_time;
 	place_t place[N_HISTORY];  //OK
+	
 } ifs_ele_t;
 
 int ifctele_getAge(void* obj){
@@ -131,30 +132,42 @@ void* ifctele_genElement(int index, int age, unsigned int detected_time, int his
 	//fscanf가 갖고 있는 정보 여기에 넣어야함. 
 	ifs_ele_t *strPtr;
 	int i;
-	
+	int Place_[N_HISTORY];
 	strPtr = malloc(sizeof(struct ifs_ele));
 	strPtr->Index=index;
 	strPtr->age=age;
 	strPtr->inf_detected_time=detected_time;
 	//for문으로 만들기 
-	for(i=0;i<5;i++){
-			strPtr->place[N_HISTORY]=history_place[i];
-	}
-	
+	for(i=0;i<N_HISTORY;i++)
+		strPtr-> place[i]=history_place[i];
+		
 	return strPtr;
 }
 
 void ifctele_printElement(void* obj){
+		int i,j;
 		ifs_ele_t *strPtr = (ifs_ele_t *)obj;
 		
 		printf("--------------------------------------------\n");
 		printf("Patient index : %i\n",strPtr->Index);
 		printf("Age : %i\n",strPtr->age);
 		printf("Detected time : %i\n",strPtr->inf_detected_time);
-		//나머지들도 print쭉 
+		printf("Path History :");
+		for(i=0;i<5;i++){
+			printf("%s (%d) " ,ifctele_getPlaceName(strPtr->place[i]),strPtr->place[i]);
+			for(j=0;j<4;j++){
+				printf("->");
+			}
+		}
+			
 		//print elements
 }
 
+int ifctele_getHistPlaceIndex(void* obj, int index){
+	ifs_ele_t *strPtr = (ifs_ele_t *)obj;
+	
+	
+}
 unsigned int ifctele_getinfestedTime(void* obj){
 	ifs_ele_t *strPtr = (ifs_ele_t *)obj;
 	
