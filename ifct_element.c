@@ -99,15 +99,11 @@ char countryName[N_PLACE+1][MAX_PLACENAME] =
 };
 
 typedef struct ifs_ele{
-	//번호  --> 정수
-	//나이	--> 정수
-	//감염 시점 --> 정수   (일수(바이러스 창궐한 이후 몇일째))
-	//감염 직전 이동경로 --> (enum) place_t배열 (N_HISTORY) 
-		//얘네들 다저장해야함 
+
 	int Index;
 	int age;
 	int inf_detected_time;
-	place_t place[N_HISTORY];  //OK
+	place_t place[N_HISTORY]; 
 	
 } ifs_ele_t;
 
@@ -137,7 +133,7 @@ void* ifctele_genElement(int index, int age, unsigned int detected_time, int his
 	strPtr->Index=index;
 	strPtr->age=age;
 	strPtr->inf_detected_time=detected_time;
-	//for문으로 만들기 
+
 	for(i=0;i<N_HISTORY;i++)
 		strPtr-> place[i]=history_place[i];
 		
@@ -153,24 +149,27 @@ void ifctele_printElement(void* obj){
 		printf("Age : %i\n",strPtr->age);
 		printf("Detected time : %i\n",strPtr->inf_detected_time);
 		printf("Path History :");
-		for(i=0;i<5;i++){
-			printf("%s (%d) " ,ifctele_getPlaceName(strPtr->place[i]),strPtr->place[i]);
-			for(j=0;j<4;j++){
-				printf("->");
-			}
-		}
+		
+		ifctele_getHistPlaceIndex(obj, strPtr->Index);
 			
 		//print elements
 }
 
 int ifctele_getHistPlaceIndex(void* obj, int index){
+	int i;
 	ifs_ele_t *strPtr = (ifs_ele_t *)obj;
 	
-	
+		for(i=0;i<5;i++){
+			printf("%s (%d) " ,ifctele_getPlaceName(strPtr->place[i]),ifctele_getinfestedTime(obj)-(4-i));
+			if(i!=4)
+				printf("-> ");
+		}
 }
+
 unsigned int ifctele_getinfestedTime(void* obj){
 	ifs_ele_t *strPtr = (ifs_ele_t *)obj;
 	
-	return (strPtr -> inf_detected_time);
+	
+	return ((strPtr -> inf_detected_time));
 }
 
