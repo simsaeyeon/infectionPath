@@ -27,8 +27,12 @@ int main(int argc, const char * argv[]) {
     FILE* fp;
     int pIndex, age, time;
     int placeHist[N_HISTORY];
-    int i,j;
+    int i;
     int min_age,max_age;
+    int Place;
+    char place_Name;
+    int cnt=0;
+    int j=0;
     
     //------------- 1. loading patient info file ------------------------------
     //1-1. FILE pointer open
@@ -89,20 +93,25 @@ int main(int argc, const char * argv[]) {
                 
             case MENU_PLACE:
                 printf("Place Name :");
-                scanf("%s",&ifct_element);
-                for(i=0;i<5;i++){
-                	if((ifctele_getHistPlaceIndex(ifctdb_getData(i),i))==ifct_element){
-                		ifctele_printElement(ifctdb_getData(i));	
-					}
-    
-				}
-            	
+                scanf("%s",&place_Name);
+               
                 break;
-                
+					
             case MENU_AGE:
+                printf("minimal age : ");
+                scanf("%d",&min_age);
+                printf("maximal age : ");
+                scanf("%d",&max_age);
                 
-                
-                
+                while(ifctdb_getData(j)!=NULL){
+                	if((min_age <=ifctele_getAge(ifctdb_getData(j))) && (ifctele_getAge(ifctdb_getData(j)) <= max_age)){
+                		ifctele_printElement(ifctdb_getData(j));
+                		j++;
+                		cnt++;
+					}	
+				}
+				printf("There are %d patients whose age is between %d and %d.\n",cnt,min_age,max_age);
+				printf("\n");
                 break;
                 
             case MENU_TRACK:

@@ -114,9 +114,6 @@ int ifctele_getAge(void* obj){
 	//구조체 안에서 나이의 값을 뽑아주는 역할
 	//void pointer로 struct 갖고 있다고 생각하면 됌.
 	//obj는 데이터 덩어리지만, 이걸 ifs_ele_t로 보겠다. 
-	
-	//ifs_ele_t *strPtr = (ifs_ele_t *)obj;
-	//return(ifs_ele_t.age); //return이 나이를 출력하게끔  pointer로 멤버에 접근하는 방법 배운거 사용하기/ 
 } 
 
 char* ifctele_getPlaceName(int placeIndex){
@@ -125,7 +122,8 @@ char* ifctele_getPlaceName(int placeIndex){
 }
 
 void* ifctele_genElement(int index, int age, unsigned int detected_time, int history_place[]){
-	//fscanf가 갖고 있는 정보 여기에 넣어야함. 
+	//fscanf가 갖고 있는 정보로 element 생성하는 함수 
+	 
 	ifs_ele_t *strPtr;
 	int i;
 	int Place_[N_HISTORY];
@@ -149,21 +147,21 @@ void ifctele_printElement(void* obj){
 		printf("Age : %i\n",strPtr->age);
 		printf("Detected time : %i\n",strPtr->inf_detected_time);
 		printf("Path History :");
-		
-		ifctele_getHistPlaceIndex(obj, strPtr->Index);
-			
-		//print elements
-}
-
-int ifctele_getHistPlaceIndex(void* obj, int index){
-	int i;
-	ifs_ele_t *strPtr = (ifs_ele_t *)obj;
-	
 		for(i=0;i<5;i++){
 			printf("%s (%d) " ,ifctele_getPlaceName(strPtr->place[i]),ifctele_getinfestedTime(obj)-(4-i));
 			if(i!=4)
 				printf("-> ");
 		}
+		printf("\n");
+		printf("--------------------------------------------");
+		printf("\n");
+		
+			
+		//print elements
+}
+
+int ifctele_getHistPlaceIndex(void* obj, int index){
+	ifs_ele_t *strPtr = (ifs_ele_t *)obj;
 }
 
 unsigned int ifctele_getinfestedTime(void* obj){
