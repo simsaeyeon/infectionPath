@@ -112,8 +112,6 @@ int ifctele_getAge(void* obj){
 	
 	return (strPtr->age);   
 	//구조체 안에서 나이의 값을 뽑아주는 역할
-	//void pointer로 struct 갖고 있다고 생각하면 됌.
-	//obj는 데이터 덩어리지만, 이걸 ifs_ele_t로 보겠다. 
 } 
 
 char* ifctele_getPlaceName(int placeIndex){
@@ -162,6 +160,7 @@ void ifctele_printElement(void* obj){
 
 int ifctele_getHistPlaceIndex(void* obj, int index){
 	ifs_ele_t *strPtr = (ifs_ele_t *)obj;
+	
 }
 
 unsigned int ifctele_getinfestedTime(void* obj){
