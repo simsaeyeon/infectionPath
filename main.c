@@ -30,7 +30,7 @@ int main(int argc, const char * argv[]) {
     int i;                  //파일에서 이동장소 저장하는 for문에서 사용하는 변수 
     int min_age,max_age;   //메뉴3에서 받을 최소 나이, 최대 나이 
     int Place;             
-    char place_Name;			//메뉴 2에서 scanf로 입력받을 장소 
+    char place_Name[100];			//메뉴 2에서 scanf로 입력받을 장소 
     int j=0,k=0;				//메뉴 3에서 for문 돌릴 때 사용하는 변수 
     
     //------------- 1. loading patient info file ------------------------------
@@ -41,7 +41,7 @@ int main(int argc, const char * argv[]) {
         return -1;
     }
     
-    fp = fopen(argv[1],"r"); //argv[1]이 뜻하는 것 : 입력한 파일 이름 patient info.txt   argv[0]이 뜻하는 것 : 실행파일 자체 
+    fp = fopen(argv[1],"r"); 
     if (fp == NULL) //Error handling code 
     {
         printf("[ERROR] Failed to open database file!! (%s)\n", argv[1]);
@@ -49,13 +49,13 @@ int main(int argc, const char * argv[]) {
     }
     
     //1-2. loading each patient informations
-    //ifctele_genElement()//여기에 값을 적절하게 하나씩 
    
+   //sample.txt에 있는 정보 스캔해서 elements 생성 
     while(3==(fscanf(fp,"%d %d %d",&pIndex,&age,&time))){
     	for(i=0;i<5;i++){
     		fscanf(fp,"%d",&placeHist[i]);
 		}
-		ifct_element = ifctele_genElement(pIndex,age,time,placeHist);//여기에 fscanf로 저장받은 값 넣어라. 
+		ifct_element = ifctele_genElement(pIndex,age,time,placeHist);
 		ifctdb_addTail(ifct_element); 
 
 	} 
@@ -93,9 +93,7 @@ int main(int argc, const char * argv[]) {
             case MENU_PLACE:
                 printf("Place Name :");
                 scanf("%s",&place_Name);
-				for(k=0;k<ifctdb_len();k++){
-				
-				}
+
                 break;
 					
             case MENU_AGE:
@@ -106,7 +104,7 @@ int main(int argc, const char * argv[]) {
                 int cnt=0;	//주어진 범위 안에 환자 몇 명인지 세어 주는 역할 
                 
                 for(j=0;j<ifctdb_len();j++){
-                	if((min_age <= ifctele_getAge(ifctdb_getData(j))) && max_age>=ifctele_getAge(ifctdb_getData(j))){
+                	if((min_age <= ifctele_getAge(ifctdb_getData(j))) && max_age >= ifctele_getAge(ifctdb_getData(j))){
                 		ifctele_printElement(ifctdb_getData(j));
                 		cnt++;
 					}

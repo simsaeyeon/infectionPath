@@ -158,7 +158,7 @@ void ifctele_printElement(void* obj){
 		//print elements
 }
 
-int ifctele_getHistPlaceIndex(void* obj, int index){
+int ifctele_getHistPlaceIndex(void* obj , int index){
 	ifs_ele_t *strPtr = (ifs_ele_t *)obj;
 	
 }
